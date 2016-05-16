@@ -71,10 +71,11 @@ public class ForecastFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    View rootView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
 //            Create some dummy data for the ListView. Here's a sample of weekly forecast
         String [] data = {
@@ -105,6 +106,20 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
+    public void putResultToListView(String [] result) {
+        // Now that we have some dummy forecast data, create an ArrayAdapter.
+        // The ArrayAdapter will take data from a source (like our dummy forecast) and
+        // use it to populate the ListView it's attached to.
+        mForecastAdapter =
+                new ArrayAdapter<String>(
+                        getActivity(), //The current context (this activity)
+                        R.layout.list_item_forecast, //The name of the layout ID
+                        R.id.list_item_forecast_textView, //The ID of the textView to populate
+                        result);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+        listView.setAdapter(mForecastAdapter);
+    }
 
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
@@ -210,12 +225,6 @@ public class ForecastFragment extends Fragment {
 
         }
 
-//        String postCode;
-//        public FetchWeatherTask() {
-//            super();
-//            this.postCode = postCode;
-//        }
-
         @Override
         protected String[] doInBackground(String... params) {
 
@@ -296,8 +305,8 @@ public class ForecastFragment extends Fragment {
                 }
             }
 
-
             try {
+                String [] result = getWeatherDataFromJson(forecastJsonStr, numDays);
                 return getWeatherDataFromJson(forecastJsonStr, numDays);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
@@ -306,6 +315,14 @@ public class ForecastFragment extends Fragment {
 
             // This will only happen if there was an error getting or parsing the forecast.
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String [] result) {
+            ForecastFragment.this.putResultToListView(result);
+            for(String row: result){
+                Log.e("weather result", row);
+            }
         }
     }
 }
