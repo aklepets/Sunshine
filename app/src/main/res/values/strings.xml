@@ -16,5 +16,13 @@
     <!-- Default postal code for location preference [CHAR LIMIT=NONE] -->
     <string name="pref_location_default" translatable="false">Minsk</string>
 
+    <!-- Label for the units preference [CHAR LIMIT=30] -->
+    <string name="pref_units_label">Pick Your Units</string>
+
+    <!-- Key name for storing units in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="pref_units_key" translatable="false">units</string>
+
+    <!-- Default units preference [CHAR LIMIT=NONE] -->
+    <string name="pref_units_default" translatable="true">Imperial</string>
 
 </resources>
