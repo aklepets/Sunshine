@@ -17,4 +17,9 @@
         android:entryValues="@array/pref_units_values"
         android:entries="@array/pref_units_options"/>
 
+    <PreferenceScreen
+        android:title="Show on Map"
+        android:summary="Map"
+        android:key="map"/>
+
 </PreferenceScreen>
