@@ -63,13 +63,13 @@ public class MainActivity extends ActionBarActivity {
         }
 
         if (id == R.id.action_map) {
-            openPreferedLocationInMap();
+            openPreferredLocationInMap();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void openPreferedLocationInMap() {
+    private void openPreferredLocationInMap() {
         SharedPreferences sharedPrefs =
                 PreferenceManager.getDefaultSharedPreferences(this);
         String location = sharedPrefs.getString(
@@ -91,6 +91,5 @@ public class MainActivity extends ActionBarActivity {
             Log.d(LOG_TAG, "Couldn't call " + location + ", no receiving apps installed!");
         }
     }
-
 
 }
